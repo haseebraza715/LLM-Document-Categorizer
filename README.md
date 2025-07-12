@@ -1,52 +1,25 @@
 # LLM-Document-Categorizer
 
-Minimal pipeline for document clustering and topic discovery using BERTopic and Mistral embeddings.
-
----
-
-## Features
-- PDF text extraction & cleaning
-- Mistral API embeddings
-- BERTopic clustering (adaptive)
-- Streamlit dashboard
-- Exportable results
-
----
+> Document clustering with BERTopic + Mistral.
 
 ## Quickstart
+
 ```bash
 pip install -r requirements.txt
-# Add your API key
-echo "MISTRAL_API_KEY=your_api_key_here" > .env
-# Add PDFs to data/raw/
+echo "MISTRAL_API_KEY=your_key" > .env
 python main_improved.py
-python run_improved_dashboard.py  # http://localhost:8502
+python run_improved_dashboard.py
 ```
 
----
+## Features
 
-## Layout
-```
-main_improved.py            # Pipeline
-run_improved_dashboard.py   # Dashboard
-clustering/                 # BERTopic/results
-ui/                        # Dashboard UI
-utils/                     # Preprocessing
-mistral_api/               # Embedding API
-data/                      # raw/ processed/
-embeddings/                # Vectors
-```
-
----
+- PDF extraction & cleaning
+- Mistral embeddings
+- BERTopic clustering
+- Streamlit dashboard
 
 ## Outputs
-- `clustering/results/improved_topic_info.csv` — Topic stats
-- `clustering/results/improved_document_assignments.csv` — Doc assignments
-- `clustering/results/improved_topics.json` — Topic keywords
-- `clustering/results/improved_bertopic_model/` — Saved model
 
----
-
-## Requirements
-Python 3.8+
-- bertopic, streamlit, plotly, scikit-learn, umap-learn, hdbscan, pandas, numpy, requests, python-dotenv 
+- `clustering/results/improved_topic_info.csv`
+- `clustering/results/improved_document_assignments.csv`
+- `clustering/results/improved_topics.json` 
