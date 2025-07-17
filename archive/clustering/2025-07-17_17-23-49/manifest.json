@@ -1,0 +1,12 @@
+{
+  "step_name": "clustering",
+  "timestamp": "2025-07-17_17-23-49",
+  "extra_note": null,
+  "archived_files": [
+    {
+      "type": "directory",
+      "src": "clustering/results",
+      "dest": "archive/clustering/2025-07-17_17-23-49/results"
+    }
+  ]
+}

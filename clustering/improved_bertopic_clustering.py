@@ -277,3 +277,47 @@ class ImprovedBERTopicClustering:
                 print(f"Could not calculate Calinski-Harabasz Index: {e}")
         
         # Davies-Bouldin Index - average similarity measure of clusters 
+
+    def save_results(self):
+        """
+        Save BERTopic model, topic info, document assignments, and topics to output_dir.
+        """
+        if self.topic_model is None:
+            raise ValueError("Model not fitted yet. Call fit_improved_bertopic() first.")
+        os.makedirs(self.output_dir, exist_ok=True)
+
+        # 1. Save BERTopic model
+        model_dir = os.path.join(self.output_dir, 'improved_bertopic_model')
+        self.topic_model.save(model_dir)
+
+        # 2. Save topic info CSV
+        topic_info = self.topic_model.get_topic_info()
+        topic_info.to_csv(os.path.join(self.output_dir, 'improved_topic_info.csv'), index=False)
+
+        # 3. Save document assignments CSV
+        docs = self.documents
+        topics, probs = self.topic_model.transform(docs, self.embeddings)
+        assignments = []
+        for i, (doc, topic, prob) in enumerate(zip(docs, topics, probs.max(axis=1))):
+            assignments.append({
+                'document_id': i,
+                'topic': topic,
+                'confidence': prob,
+                'text_preview': doc[:200]
+            })
+        import pandas as pd
+        assignments_df = pd.DataFrame(assignments)
+        assignments_df.to_csv(os.path.join(self.output_dir, 'improved_document_assignments.csv'), index=False)
+
+        # 4. Save topics JSON (top words per topic)
+        topics_dict = {}
+        for topic_id in self.topic_model.get_topics().keys():
+            if topic_id == -1:
+                continue
+            words = self.topic_model.get_topic(topic_id)
+            topics_dict[str(topic_id)] = words
+        with open(os.path.join(self.output_dir, 'improved_topics.json'), 'w') as f:
+            json.dump(topics_dict, f, indent=2)
+
+        # 5. Optionally, save a summary HTML (skip for now)
+        print(f"Saved results to {self.output_dir}") 

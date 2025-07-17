@@ -1,0 +1,17 @@
+{
+  "step_name": "embeddings",
+  "timestamp": "2025-07-17_17-18-14",
+  "extra_note": null,
+  "archived_files": [
+    {
+      "type": "file",
+      "src": "embeddings/mistral_vectors.npy",
+      "dest": "archive/embeddings/2025-07-17_17-18-14/mistral_vectors.npy"
+    },
+    {
+      "type": "file",
+      "src": "embeddings/doc_map.json",
+      "dest": "archive/embeddings/2025-07-17_17-18-14/doc_map.json"
+    }
+  ]
+}
